@@ -1,53 +1,54 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('pokemon', {
-    id:{
-      type: DataTypes.UUID,
-      allowNull: false,
-      defaultValue: DataTypes.UUIDV1,
-      primaryKey: true,
-    },
+  sequelize.define("pokemon", {
+    // id: {
+    //   type: DataTypes.UUID,  //data.id
+    //   allowNull: false,
+    //   defaultValue: DataTypes.UUIDV1,
+    //   primaryKey: true,
+    // },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, //data.name
       allowNull: false,
     },
-    img:{
-      type: DataTypes.STRING,
+    img: {
+      type: DataTypes.STRING, //data.sprites.other.home.front_default
     },
-    lifetime:{
+    lifetime: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    strength:{
-      type: DataTypes.INTEGER,
+    strength: {
+      type: DataTypes.INTEGER,  // stats[0].base_stat
       allowNull: false,
     },
-    defending:{
-      type: DataTypes.INTEGER,
+    defending: {
+      type: DataTypes.INTEGER, // stats[2].base_stat
       allowNull: false,
     },
-    velocity:{
-      type: DataTypes.INTEGER,
+    velocity: {
+      type: DataTypes.INTEGER, // stats[5].base_stat
       allowNull: false,
     },
-    height:{
-      type: DataTypes.INTEGER,
+    height: {
+      type: DataTypes.INTEGER, //data.height
       allowNull: false,
     },
-    weight:{
-      type: DataTypes.INTEGER,
+    weight: {
+      type: DataTypes.INTEGER, //data.weight
       allowNull: false,
     },
 
-
+    mine: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   });
 };
-
-
-
 
 // ID
 // Name *
