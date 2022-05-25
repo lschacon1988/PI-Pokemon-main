@@ -75,31 +75,41 @@ const getName = async (name) => {
       let pokeDb = await Pokemon.findOne({ name });
       if (pokeDb) pokeDb;
       else {
-        const namePoke = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${name}`
-        );
-        const pokeName = {
-          id: namePoke.data.id,
-          name: namePoke.data.name,
-          hp: namePoke.data.stats[0].base_stat,
-          // stats[0].base_stat
-          types: namePoke.data.types.map((e) => e.type.name),
-          attack: namePoke.data.stats[1].base_stat,
-          // stats[1].base_stat
-          defense: namePoke.data.stats[2].base_stat,
-          // stats[2].base_stat
-          speed: namePoke.data.stats[5].base_stat,
-          // stats[5].base_stat
-          height: namePoke.data.height,
-          //data.height
-          weight: namePoke.data.weight,
-          //data.weight
-          img: namePoke.data.sprites.other.home.front_default,
-          //data.sprites.other.home.front_default
-        };
-
-        return pokeName;
+        const pokeName = await model(name);
+        if (pokeName) return pokeName;
+        else {
+          return { meg: "Pokemon Not Found" };
+        }
       }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const model = async (data) => {
+  try {
+    if (data) {
+      const modelo = await axios(`https://pokeapi.co/api/v2/pokemon/${data}`);
+      if (!modelo) {
+        return { meg: "Pokemon Not Found" };
+      } else {
+        const pokeModel = {
+          id: modelo.data.id,
+          name: modelo.data.name,
+          hp: modelo.data.stats[0].base_stat,
+          types: modelo.data.types.map((e) => e.type.name),
+          attack: modelo.data.stats[1].base_stat,
+          defense: modelo.data.stats[2].base_stat,
+          speed: modelo.data.stats[5].base_stat,
+          height: modelo.data.height,
+          weight: modelo.data.weight,
+          img: modelo.data.sprites.other.home.front_default,
+        };
+        return pokeModel;
+      }
+    } else {
+      return { meg: "Debes ingresar un valor" };
     }
   } catch (error) {
     console.log(error);
@@ -109,7 +119,6 @@ const getName = async (name) => {
 const getType = async () => {
   const result = await axios("https://pokeapi.co/api/v2/type");
   const type = result.data.results.map((e) => e.name);
-
   return type;
 };
 
@@ -124,6 +133,23 @@ const creatType = async () => {
   return arrType;
 };
 
+const pokeDetail = async (id) => {
+  try {
+    if (id) {
+      let idDb = await Pokemon.findOne({ attributes: ["id"] });
+      if (idDb) {
+        return idDb;
+      }
+      const detali = await model(id);
+
+      return detali;
+    }
+    return { meg: "Pokemon Not Found" };
+  } catch (error) {
+    console.log(error);
+  }
+};
+getName("pikau");
 const router = Router();
 
 router.get("/pokemons", async (req, res, next) => {
@@ -131,10 +157,9 @@ router.get("/pokemons", async (req, res, next) => {
   try {
     if (name) {
       let p = await getName(name);
-      return res.json(p)
-      
+      return res.json(p);
     } else {
-      let allPoke = getAllPoke();
+      let allPoke = await getAllPoke();
       return res.json(allPoke);
     }
   } catch (error) {
