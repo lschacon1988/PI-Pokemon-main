@@ -15,10 +15,11 @@ const getInfo = async () => {
       allRes.map(async (e) => {
         let p = await axios(e.url);
         return {
-            id: p.data.id,
+          id: p.data.id,
           name: p.data.name,
-          hp: p.data.stats[0].base_stat, 
+          hp: p.data.stats[0].base_stat,
           // stats[0].base_stat
+          types: p.data.types.map((e) => e.type.name),
           attack: p.data.stats[1].base_stat,
           // stats[1].base_stat
           defense: p.data.stats[2].base_stat,
@@ -34,57 +35,143 @@ const getInfo = async () => {
         };
       })
     );
-      
+
     return allPoke;
   } catch (error) {
-      console.log(error)
+    console.log(error);
   }
 };
 
-const getName = async (name) =>{
-    try {
-     if(name){
-          const namePoke = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`) 
-          console.log('SOY NAME',namePoke)
-          return namePoke
-         }
-    } catch (error) {
-        console.log(error)
+const getDb = async () => {
+  try {
+    const dataDbPoke = await Pokemon.findAll({
+      include: {
+        model: Types,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
+    return dataDbPoke;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getAllPoke = async () => {
+  let pokeApi = await getInfo();
+  let pokeDb = await getDb();
+  let all = pokeApi.concat(pokeDb);
+  console.log(all);
+  return all;
+};
+
+const getName = async (name) => {
+  try {
+    if (name) {
+      name = name.toLowerCase();
+      let pokeDb = await Pokemon.findOne({ name });
+      if (pokeDb) pokeDb;
+      else {
+        const namePoke = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${name}`
+        );
+        const pokeName = {
+          id: namePoke.data.id,
+          name: namePoke.data.name,
+          hp: namePoke.data.stats[0].base_stat,
+          // stats[0].base_stat
+          types: namePoke.data.types.map((e) => e.type.name),
+          attack: namePoke.data.stats[1].base_stat,
+          // stats[1].base_stat
+          defense: namePoke.data.stats[2].base_stat,
+          // stats[2].base_stat
+          speed: namePoke.data.stats[5].base_stat,
+          // stats[5].base_stat
+          height: namePoke.data.height,
+          //data.height
+          weight: namePoke.data.weight,
+          //data.weight
+          img: namePoke.data.sprites.other.home.front_default,
+          //data.sprites.other.home.front_default
+        };
+
+        return pokeName;
+      }
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-}
+const getType = async () => {
+  const result = await axios("https://pokeapi.co/api/v2/type");
+  const type = result.data.results.map((e) => e.name);
 
-getName("bulbasaur")
+  return type;
+};
+
+const creatType = async () => {
+  let arrType = await getType();
+  await arrType.forEach((e) => {
+    Types.findOrCreate({
+      where: { name: e },
+    });
+  });
+
+  return arrType;
+};
 
 const router = Router();
 
-// router.get('/pokemons',async (req, res, next)=>{
-//     const {name} = req.query
-//     const apiPokemons = await getInfo()
-// try {
-//     let hay = await Pokemon.findAll();
-//     console.log('SOY HAY', hay)
-//     if(!hay.length) await Pokemon.bullkcreate(apiPokemons)
-// } catch (error) {
-//     console.log(error)
-// }
+router.get("/pokemons", async (req, res, next) => {
+  const { name } = req.query;
+  try {
+    if (name) {
+      let p = await getName(name);
+      return res.json(p)
+      
+    } else {
+      let allPoke = getAllPoke();
+      return res.json(allPoke);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
-// console.log('SOY POKE', apiPokemons)
-// if(name){
-//     try {
+router.post("/pokemons", async (req, res, next) => {
+  const { name, hp, types, attack, defense, speed, height, weight, img } =
+    req.body;
 
-//         let poke = await Pokemon.findAll({
-//             where:{
-//                 name: name
-//             }
-//         })
-//         return res.json(poke)
+  try {
+    await Pokemon.create({
+      name: name,
+      hp: hp,
+      types: types,
+      attack: attack,
+      defense: defense,
+      speed: speed,
+      height: height,
+      weight: weight,
+      img: img,
+    });
+    res.json({ meg: "Pokemon creado" });
+  } catch (error) {
+    next(error);
+  }
+});
 
-//     } catch (error) {
-//         console.log(error)
-
-//     }
-// }
-// })
+router.get("/types", async (req, res, next) => {
+  try {
+    creatType();
+    const type = await Types.findAll();
+    res.json(type);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
