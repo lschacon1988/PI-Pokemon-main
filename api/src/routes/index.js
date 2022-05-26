@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { Pokemon, Types, type_pokemon } = require("../db.js");
 const axios = require("axios");
+const { where } = require("sequelize/types");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const getInfo = async () => {
@@ -73,7 +74,7 @@ const getName = async (name) => {
     if (name) {
       name = name.toLowerCase();
       let pokeDb = await Pokemon.findOne({ name });
-      if (pokeDb) pokeDb;
+      if (pokeDb) return pokeDb;
       else {
         const pokeName = await model(name);
         if (pokeName) return pokeName;
@@ -91,9 +92,7 @@ const model = async (data) => {
   try {
     if (data) {
       const modelo = await axios(`https://pokeapi.co/api/v2/pokemon/${data}`);
-      if (!modelo) {
-        return { meg: "Pokemon Not Found" };
-      } else {
+      if (modelo) {
         const pokeModel = {
           id: modelo.data.id,
           name: modelo.data.name,
@@ -112,7 +111,7 @@ const model = async (data) => {
       return { meg: "Debes ingresar un valor" };
     }
   } catch (error) {
-    console.log(error);
+    //  console.log(error);
   }
 };
 
@@ -139,17 +138,17 @@ const pokeDetail = async (id) => {
       let idDb = await Pokemon.findOne({ attributes: ["id"] });
       if (idDb) {
         return idDb;
+      } else {
+        const detali = await model(parseInt(id));
+        if (detali) return detali;
+        else return { meg: "Pokemon Not Found" };
       }
-      const detali = await model(id);
-
-      return detali;
     }
-    return { meg: "Pokemon Not Found" };
   } catch (error) {
     console.log(error);
   }
 };
-getName("pikau");
+
 const router = Router();
 
 router.get("/pokemons", async (req, res, next) => {
@@ -162,6 +161,17 @@ router.get("/pokemons", async (req, res, next) => {
       let allPoke = await getAllPoke();
       return res.json(allPoke);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/pokemons/:idPokemon", async (req, res, next) => {
+  const { idPokemon } = req.params;
+  try {
+    let p = await pokeDetail(idPokemon);
+    console.log(p);
+    if (p) return res.json(p);
   } catch (error) {
     next(error);
   }
