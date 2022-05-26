@@ -1,17 +1,14 @@
 const { Router } = require("express");
 const { Pokemon, Types, type_pokemon } = require("../db.js");
 const axios = require("axios");
-const { where } = require("sequelize/types");
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const getInfo = async () => {
   try {
     const pokeApi = await axios.get("https://pokeapi.co/api/v2/pokemon");
     const resApi = await axios.get(pokeApi.data.next);
-    const resApi2 = await axios.get(resApi.data.next);
-    const allRes = pokeApi.data.results
-      .concat(resApi.data.results)
-      .concat(resApi2.data.results);
+    const allRes = pokeApi.data.results.concat(resApi.data.results);
     const allPoke = await Promise.all(
       allRes.map(async (e) => {
         let p = await axios(e.url);
@@ -54,7 +51,6 @@ const getDb = async () => {
         },
       },
     });
-
     return dataDbPoke;
   } catch (error) {
     console.log(error);
@@ -64,8 +60,7 @@ const getDb = async () => {
 const getAllPoke = async () => {
   let pokeApi = await getInfo();
   let pokeDb = await getDb();
-  let all = pokeApi.concat(pokeDb);
-  console.log(all);
+  let all = pokeApi.concat(pokeDb);  
   return all;
 };
 
@@ -73,7 +68,7 @@ const getName = async (name) => {
   try {
     if (name) {
       name = name.toLowerCase();
-      let pokeDb = await Pokemon.findOne({ name });
+      let pokeDb = await Pokemon.findAll({where:{name:name}});
       if (pokeDb) return pokeDb;
       else {
         const pokeName = await model(name);
@@ -135,7 +130,7 @@ const creatType = async () => {
 const pokeDetail = async (id) => {
   try {
     if (id) {
-      let idDb = await Pokemon.findOne({ attributes: ["id"] });
+      let idDb = await Pokemon.findAll({ where: {id:id} });
       if (idDb) {
         return idDb;
       } else {
@@ -182,7 +177,7 @@ router.post("/pokemons", async (req, res, next) => {
     req.body;
 
   try {
-    await Pokemon.create({
+    let newPoke = await Pokemon.create({
       name: name,
       hp: hp,
       types: types,
@@ -193,6 +188,10 @@ router.post("/pokemons", async (req, res, next) => {
       weight: weight,
       img: img,
     });
+    let dbType = await Types.findAll({
+      where: { name: types}
+    })
+    newPoke.addTypes(dbType)
     res.json({ meg: "Pokemon creado" });
   } catch (error) {
     next(error);
