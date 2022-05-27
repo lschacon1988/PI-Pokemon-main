@@ -69,12 +69,12 @@ const getName = async (name) => {
     if (name) {
       name = name.toLowerCase();
       let pokeDb = await Pokemon.findAll({where:{name:name}});
-      if (pokeDb) return pokeDb;
+      if (pokeDb.lemgth > 0) return pokeDb;
       else {
         const pokeName = await model(name);
         if (pokeName) return pokeName;
         else {
-          return { meg: "Pokemon Not Found" };
+          return { msg: "Pokemon Not Found" };
         }
       }
     }
@@ -103,7 +103,7 @@ const model = async (data) => {
         return pokeModel;
       }
     } else {
-      return { meg: "Debes ingresar un valor" };
+      return { msg: "Debes ingresar un valor" };
     }
   } catch (error) {
     //  console.log(error);
@@ -136,7 +136,7 @@ const pokeDetail = async (id) => {
       } else {
         const detali = await model(parseInt(id));
         if (detali) return detali;
-        else return { meg: "Pokemon Not Found" };
+        else return { msg: "Pokemon Not Found" };
       }
     }
   } catch (error) {
@@ -192,7 +192,7 @@ router.post("/pokemons", async (req, res, next) => {
       where: { name: types}
     })
     newPoke.addTypes(dbType)
-    res.json({ meg: "Pokemon creado" });
+    res.json({ msg: "Pokemon creado" });
   } catch (error) {
     next(error);
   }
