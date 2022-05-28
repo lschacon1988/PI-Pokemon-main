@@ -1,12 +1,8 @@
+import app from "./app";
+import pokemonReducers from "./pokemonReducers";
+import { combineReducers } from "redux";
 
 
-
-let reducers = ()=>{
-    
-}
-
-
-
-
+const reducers = combineReducers({app, pokemonReducers})
 
 export default reducers

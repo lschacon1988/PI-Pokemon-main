@@ -60,7 +60,7 @@ const getDb = async () => {
 const getAllPoke = async () => {
   let pokeApi = await getInfo();
   let pokeDb = await getDb();
-  let all = pokeApi.concat(pokeDb);  
+  let all = pokeApi.concat(pokeDb);
   return all;
 };
 
@@ -68,7 +68,7 @@ const getName = async (name) => {
   try {
     if (name) {
       name = name.toLowerCase();
-      let pokeDb = await Pokemon.findAll({where:{name:name}});
+      let pokeDb = await Pokemon.findAll({ where: { name: name } });
       if (pokeDb.lemgth > 0) return pokeDb;
       else {
         const pokeName = await model(name);
@@ -129,18 +129,18 @@ const creatType = async () => {
 
 const pokeDetail = async (id) => {
   try {
-    if (id) {
-      let idDb = await Pokemon.findAll({ where: {id:id} });
-      if (idDb) {
+    if (id.length > 5) {
+      let idDb = await Pokemon.findAll({ where: { id: id } });
+      if (idDb.length) {
         return idDb;
-      } else {
-        const detali = await model(parseInt(id));
-        if (detali) return detali;
-        else return { msg: "Pokemon Not Found" };
       }
     }
+      const detali = await model(id);
+      if (detali) return detali;
+      else return { msg: "Pokemon Not Found" };
+    
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -189,9 +189,9 @@ router.post("/pokemons", async (req, res, next) => {
       img: img,
     });
     let dbType = await Types.findAll({
-      where: { name: types}
-    })
-    newPoke.addTypes(dbType)
+      where: { name: types },
+    });
+    newPoke.addTypes(dbType);
     res.json({ msg: "Pokemon creado" });
   } catch (error) {
     next(error);
