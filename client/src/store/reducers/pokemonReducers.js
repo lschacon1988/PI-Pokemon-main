@@ -12,13 +12,13 @@ export default function pokemonReducers(
   switch (type) {
     case GET_POKEMONS: {
       return {
-        ...state,
+        ...state,        
         pokemons: payload,
       };
     }
     case NAME_POKEMON:{
-      return{   
-        ...state,
+      return{ 
+        ...state,              
         pokemonName: payload
       } 
     }

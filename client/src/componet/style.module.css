@@ -49,3 +49,18 @@
     text-align: center;
     font-weight: bold;
 }
+.number{
+    height: auto;
+    width: 10%;
+    background-color: #f0f0f0;
+    list-style: none;
+    margin-right: 0.5rem;
+    text-align: center;
+    
+}
+.ul{
+    display: flex;
+    
+    
+    
+}

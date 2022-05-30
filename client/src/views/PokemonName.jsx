@@ -1,38 +1,30 @@
-// import axios from "axios";
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getPokemonNAME } from "../store/action";
+// import s from "../componet/style.module.css";
 
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Pokemon from "../componet/Pokemon";
-import s from "../componet/style.module.css";
-import { getPokemonNAME } from "../store/action";
+// export default function PokemonName(props) {
+//   const { navigate, search } = props;
 
-export default function PokemonName(props) {
-    
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(getPokemonNAME(name))
-    }, [dispatch]);
-    
-    const {
-      pokemonReducers: { pokemonName },
-      name
-  } = useSelector((state) => {
-      return state;
-    });
-     console.log('SOY POKEMONNAME',name, pokemonName)
+// //   const dispatch = useDispatch();
 
-  return (
-    <div className={s.cardDetail}>
-      {pokemonName && (
-        <>
-          <Pokemon
-            img={pokemonName.img}
-            name={pokemonName.name}
-            types={pokemonName.types}
-          />
-        </>
-      )}
-    </div>
-  );
-}
+// //   useEffect(() => {
+// //     dispatch(getPokemonNAME(search));
+// //   }, [dispatch]);
+//   const {
+//     pokemonReducers: { pokemonName },
+//   } = useSelector((state) => {
+//     return state;
+//   });
+//   console.log("SOY POKEMONNAME STATE", pokemonName);
+//   return (
+//     <div className={s.card}>
+//       <img className={s.img} src={pokemonName.img} alt={pokemonName.name} />
+//       <span className={s.span}>{pokemonName.name}</span>
+//       <span className={s.span}>Types: {pokemonName.types}</span>
+//       <div className={s.btn}>
+//         <button onClick={() => navigate(pokemonName.id)}>Detail</button>
+//       </div>
+//     </div>
+//   );
+// }

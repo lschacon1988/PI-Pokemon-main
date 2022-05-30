@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Search({ onSearch }) {
@@ -7,25 +8,25 @@ export default function Search({ onSearch }) {
     e.preventDefault();
     setName(e.target.value);
   };
-  console.log("SOY NAME CREO", name);
-  console.log('spy algo',onSearch(name))
+  
+  
   return (
     <div>
-      <Link to={`/pokemons?name=${name}`}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSearch(name);
-          }}
-        >
-          <input
-            type="search"
-            placeholder="Buscar Pokemon"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <input type="button" value="buscar" />
-        </form>
-      </Link>
+      <form
+        
+      >
+        <input
+          type="search"
+          placeholder="Buscar Pokemon"
+          onChange={(e) => handleInputChange(e)}
+        />
+        <Link to={`/pokemons?name=${name}`}>
+          <input type="button" value="buscar" onSubmit={(e) => {
+          e.preventDefault();
+           onSearch(name) ;
+        }} />
+        </Link>
+      </form>
     </div>
   );
 }
