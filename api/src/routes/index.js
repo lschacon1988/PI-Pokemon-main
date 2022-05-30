@@ -148,12 +148,15 @@ const router = Router();
 
 router.get("/pokemons", async (req, res, next) => {
   const { name } = req.query;
+  console.log('SOY NAME EN BACK', name)
   try {
     if (name) {
       let p = await getName(name);
+      console.log(p)
       return res.json(p);
     } else {
       let allPoke = await getAllPoke();
+      
       return res.json(allPoke);
     }
   } catch (error) {

@@ -1,7 +1,8 @@
-import { GET_POKEMONS } from "../action/actionType";
+import { GET_POKEMONS, NAME_POKEMON } from "../action/actionType";
 
 const initialState = {
-  pokemons:[]
+  pokemons:[],
+  pokemonName: []
 };
 
 export default function pokemonReducers(
@@ -14,6 +15,12 @@ export default function pokemonReducers(
         ...state,
         pokemons: payload,
       };
+    }
+    case NAME_POKEMON:{
+      return{   
+        ...state,
+        pokemonName: payload
+      } 
     }
 
     default:
