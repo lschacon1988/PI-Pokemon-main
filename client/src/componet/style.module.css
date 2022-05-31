@@ -1,3 +1,11 @@
+.contenedor{
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .card {
     background-color: rgb(149, 165, 166);
     display: flex;
@@ -5,7 +13,7 @@
     margin: 1.5rem;
     gap: 1rem;
     align-items: center;
-    width: 37%;
+    width: 33%;
     border: solid, 1px, #f0f0f0;
     border-radius: 5%;
     overflow: hidden;
@@ -59,8 +67,12 @@
     
 }
 .ul{
-    display: flex;
-    
-    
-    
+    display: flex;    
 }
+
+.select{
+    margin-right:  0.5rem;
+}
+
+
+

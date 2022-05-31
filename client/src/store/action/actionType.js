@@ -1,2 +1,5 @@
 export const GET_POKEMONS = 'pokemon/get'
 export const NAME_POKEMON = 'pokemon/name'
+export const FILTER_TYPE =  'type/filter'
+export const ORDER_BY = 'order/by'
+export const FILTER_CREATE = 'create/filter'

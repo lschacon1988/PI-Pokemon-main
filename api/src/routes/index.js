@@ -66,18 +66,16 @@ const getAllPoke = async () => {
 
 const getName = async (name) => {
   try {
-    if (name) {
-      name = name.toLowerCase();
-      let pokeDb = await Pokemon.findAll({ where: { name: name } });
-      if (pokeDb.lemgth > 0) return pokeDb;
-      else {
-        const pokeName = await model(name);
-        if (pokeName) return pokeName;
-        else {
-          return { msg: "Pokemon Not Found" };
-        }
-      }
+    name = name.toLowerCase();
+    const pokeName = await model(name);
+    if (pokeName) return pokeName;
+    else {
+      return { msg: "Pokemon Not Found" };
     }
+    // let pokeDb = await Pokemon.findAll({ where: { name: name } });
+    // if (pokeDb.lemgth > 0) return pokeDb;
+    // else {
+    // }
   } catch (error) {
     console.log(error);
   }
@@ -85,25 +83,21 @@ const getName = async (name) => {
 
 const model = async (data) => {
   try {
-    if (data) {
-      const modelo = await axios(`https://pokeapi.co/api/v2/pokemon/${data}`);
-      if (modelo) {
-        const pokeModel = {
-          id: modelo.data.id,
-          name: modelo.data.name,
-          hp: modelo.data.stats[0].base_stat,
-          types: modelo.data.types.map((e) => e.type.name),
-          attack: modelo.data.stats[1].base_stat,
-          defense: modelo.data.stats[2].base_stat,
-          speed: modelo.data.stats[5].base_stat,
-          height: modelo.data.height,
-          weight: modelo.data.weight,
-          img: modelo.data.sprites.other.home.front_default,
-        };
-        return pokeModel;
-      }
-    } else {
-      return { msg: "Debes ingresar un valor" };
+    const modelo = await axios(`https://pokeapi.co/api/v2/pokemon/${data}`);
+    if (modelo) {
+      const pokeModel = {
+        id: modelo.data.id,
+        name: modelo.data.name,
+        hp: modelo.data.stats[0].base_stat,
+        types: modelo.data.types.map((e) => e.type.name),
+        attack: modelo.data.stats[1].base_stat,
+        defense: modelo.data.stats[2].base_stat,
+        speed: modelo.data.stats[5].base_stat,
+        height: modelo.data.height,
+        weight: modelo.data.weight,
+        img: modelo.data.sprites.other.home.front_default,
+      };
+      return pokeModel;
     }
   } catch (error) {
     //  console.log(error);
@@ -135,10 +129,9 @@ const pokeDetail = async (id) => {
         return idDb;
       }
     }
-      const detali = await model(id);
-      if (detali) return detali;
-      else return { msg: "Pokemon Not Found" };
-    
+    const detali = await model(id);
+    if (detali) return detali;
+    else return { msg: "Pokemon Not Found" };
   } catch (error) {
     // console.log(error);
   }
@@ -150,13 +143,12 @@ router.get("/pokemons", async (req, res, next) => {
   const { name } = req.query;
   try {
     if (name) {
-      console.log('SOY NAME EN BACK', name)
+      let prueba = [];
       let p = await getName(name);
-      console.log(p)
-      return res.json(p);
+       prueba.push(p);
+      return res.json(prueba);
     } else {
       let allPoke = await getAllPoke();
-      
       return res.json(allPoke);
     }
   } catch (error) {

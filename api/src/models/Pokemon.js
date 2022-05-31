@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
     img: {
       type: DataTypes.STRING, //data.sprites.other.home.front_default
     },
-    mine: {
+    createDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,

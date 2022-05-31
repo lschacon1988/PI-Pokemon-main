@@ -1,8 +1,9 @@
 import s from "./style.module.css";
 
-export default function Pokemon(props) {
-  const { pokemon, navigate } = props;
-  const { name, img, id, types } = pokemon;
+export default function Pokemon({navigate,
+  name, img, id, types}) {
+  // const { pokemon, navigate } = props;
+  // const { name, img, id, types } = pokemon;
 
   return (
     <main className={s.card}>
