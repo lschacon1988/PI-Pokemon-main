@@ -1,31 +1,38 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { getPokemonNAME } from "../store/action";
 
-export default function Search({ onSearch }) {
+export default function Search () {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const handleInputChange = (e) => {
     e.preventDefault();
     setName(e.target.value);
   };
+  console.log('SOY NAME DE SEARCH', name)
+  const onSearch = (e) => {
+    e.preventDefault();
+    dispatch(getPokemonNAME(name));
+  };
   
-  
+
   return (
     <div>
-      <form
-        
-      >
+      <form>
         <input
           type="search"
           placeholder="Buscar Pokemon"
           onChange={(e) => handleInputChange(e)}
         />
-        <Link to={`/pokemons?name=${name}`}>
-          <input type="button" value="buscar" onSubmit={(e) => {
-          e.preventDefault();
-           onSearch(name) ;
-        }} />
-        </Link>
+
+        <button
+          type="submit"
+          onClick={(e) => {
+            onSearch(e);
+          }}
+        >
+          Buscar
+        </button>
       </form>
     </div>
   );

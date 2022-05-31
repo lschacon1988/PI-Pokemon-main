@@ -18,6 +18,7 @@ export function getPokemonNAME(name){
     return async (dispatch)=>{
         const response = await axios.get(`http://localhost:3001/pokemons/${name}`)
         const {data} = response
+        console.log('soy data de accion', data)
         return dispatch(setPokemons(NAME_POKEMON, data))
     }
 }

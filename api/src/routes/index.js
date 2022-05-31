@@ -148,9 +148,9 @@ const router = Router();
 
 router.get("/pokemons", async (req, res, next) => {
   const { name } = req.query;
-  console.log('SOY NAME EN BACK', name)
   try {
     if (name) {
+      console.log('SOY NAME EN BACK', name)
       let p = await getName(name);
       console.log(p)
       return res.json(p);
