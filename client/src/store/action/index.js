@@ -2,8 +2,10 @@ import {
     FILTER_CREATE,
   FILTER_TYPE,
   GET_POKEMONS,
+  GET_TYPE,
   NAME_POKEMON,
   ORDER_BY,
+  ORDER_BY_POWER,
 } from "./actionType";
 import axios from "axios";
 
@@ -31,8 +33,25 @@ export function getPokemonNAME(name) {
   };
 }
 
+export function getType(){
+  return async (dispatch) =>{
+    const response = await axios.get('http://localhost:3001/types')
+    const {data} = response
+    return dispatch({type: GET_TYPE, payload: data})
+  }
+}
+
 export function ordenBy(payload) {
-  return setPokemons(ORDER_BY, payload);
+  return {
+    type: ORDER_BY,
+    payload: payload,
+  }
+}
+export function ordenByPower(payload) {
+  return {
+    type: ORDER_BY_POWER,
+    payload: payload,
+  }
 }
 
 export function filterType(payload) {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import s from "../componet/style.module.css";
 
@@ -16,17 +16,28 @@ export default function PokemonDetail() {
       });
   }, [idPokemon]);
 
- 
+  console.log("Soy estado de detalle", state);
+
   return (
     <div className={s.cardDetail}>
-      {state && (
-        <>
-          <img className={s.img} src={state.img} alt="" />
-          <samp>
-            Name: {state.name} Type: {state.types}
-          </samp>
-        </>
-      )}
+      {
+        state &&
+          state.map((e) => (
+            <div key={e.id}>
+              <img src={e.img} alt={e.name} />
+              <samp>
+                Name: {e.name} Type: {e.types}
+              </samp>
+            </div>
+          ))
+
+        // <>
+        //   <img className={s.img} src={state.img} alt="" />
+        //   <samp>
+        //     Name: {state.name} Type: {state.types}
+        //   </samp>
+        // </>
+      }
     </div>
   );
 }

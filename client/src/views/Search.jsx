@@ -11,7 +11,6 @@ export default function Search() {
     setName(e.target.value);
   };
 
-  console.log("SOY NAME DE SEARCH", name);
   const onSearch = (e) => {
     e.preventDefault();
     dispatch(getPokemonNAME(name));

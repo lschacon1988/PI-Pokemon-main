@@ -67,15 +67,20 @@ const getAllPoke = async () => {
 const getName = async (name) => {
   try {
     name = name.toLowerCase();
-    const pokeName = await model(name);
-    if (pokeName) return pokeName;
-    else {
-      return { msg: "Pokemon Not Found" };
+    let pokeDb = await Pokemon.findAll({ where: { name: name } });
+
+    if (pokeDb.length) {
+      return pokeDb;
+    } else {
+      const pokeName = await model(name);
+      if (pokeName) {
+        let arrPokeName = [];
+        arrPokeName.push(pokeName);
+        return arrPokeName;
+      } else {
+        return { msg: "Pokemon Not Found" };
+      }
     }
-    // let pokeDb = await Pokemon.findAll({ where: { name: name } });
-    // if (pokeDb.lemgth > 0) return pokeDb;
-    // else {
-    // }
   } catch (error) {
     console.log(error);
   }
@@ -123,15 +128,20 @@ const creatType = async () => {
 
 const pokeDetail = async (id) => {
   try {
-    if (id.length > 5) {
+    if (id.length > 8) {
       let idDb = await Pokemon.findAll({ where: { id: id } });
       if (idDb.length) {
         return idDb;
       }
     }
+
+    let arrDetali = [];
     const detali = await model(id);
-    if (detali) return detali;
-    else return { msg: "Pokemon Not Found" };
+    arrDetali.push(detali);
+
+    if (arrDetali.length) return arrDetali;
+
+    return { msg: "Pokemon Not Found" };
   } catch (error) {
     // console.log(error);
   }
@@ -143,10 +153,9 @@ router.get("/pokemons", async (req, res, next) => {
   const { name } = req.query;
   try {
     if (name) {
-      let prueba = [];
       let p = await getName(name);
-       prueba.push(p);
-      return res.json(prueba);
+
+      return res.json(p);
     } else {
       let allPoke = await getAllPoke();
       return res.json(allPoke);
@@ -160,7 +169,7 @@ router.get("/pokemons/:idPokemon", async (req, res, next) => {
   const { idPokemon } = req.params;
   try {
     let p = await pokeDetail(idPokemon);
-    console.log(p);
+
     if (p) return res.json(p);
   } catch (error) {
     next(error);
@@ -182,6 +191,7 @@ router.post("/pokemons", async (req, res, next) => {
       height: height,
       weight: weight,
       img: img,
+      createDb: true,
     });
     let dbType = await Types.findAll({
       where: { name: types },
@@ -195,9 +205,10 @@ router.post("/pokemons", async (req, res, next) => {
 
 router.get("/types", async (req, res, next) => {
   try {
-    creatType();
+    const t = await creatType();
+    console.log("esto es t", t);
     const type = await Types.findAll();
-    res.json(type);
+    res.json(t);
   } catch (error) {
     next(error);
   }

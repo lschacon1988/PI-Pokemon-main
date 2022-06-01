@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pokemon from "../componet/Pokemon";
-import { filterCreate, filterType, getpokemonBack } from "../store/action";
+import { filterCreate, filterType, getpokemonBack, getType, ordenBy, ordenByPower } from "../store/action";
 import s from "../componet/style.module.css";
 import Search from "./Search";
 
 import Paginado from "./Paginado";
+import FilterType from "./FilterType";
+import FilterCreate from "./FilterCreate";
+import OrderBy from "./OrderBy";
 
 export default function Pokemons(props) {
   const {
@@ -14,11 +17,11 @@ export default function Pokemons(props) {
 
   const dispatch = useDispatch();
 
-  const pokemonsPR2 = useSelector((state) => state.pokemonReducers.pokemonAll);
   useEffect(() => {
     dispatch(getpokemonBack());
+    dispatch(getType())
   }, [dispatch]);
-  
+  const [order, setOrder] = useState('')
   const pokemonsPR = useSelector((state) => state.pokemonReducers.pokemons);
   // PAGINADO
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,84 +29,55 @@ export default function Pokemons(props) {
   const indexOfLastPage = currentPage * limitPage;
   const indexOffirstpage = indexOfLastPage - limitPage;
   const currentPokemos = pokemonsPR.slice(indexOffirstpage, indexOfLastPage);
-  
+
   const paginado = (pag) => {
     setCurrentPage(pag);
   };
-  
+
   const handleNavigate = (id) => {
     push(`/pokemons/${id}`);
   };
+
   const handleFilterType = (e) => {
     dispatch(filterType(e.target.value));
-    setCurrentPage(1)
+    setCurrentPage(1);
   };
+  const handleFilterCreate = (e) => {
+    dispatch(filterCreate(e.target.value));
+    setCurrentPage(1);
+  }; 
 
-  const handleFilterCreate = (e)=>{
-    dispatch(filterCreate(e.target.value))
-    setCurrentPage(1)
+  function handleOderByAlf(e) {
+    dispatch(ordenBy(e.target.value));
+    // setCurrentPage(1);
+    setOrder(e.target.value)
+  }
+  function handleOderByPow(e){
+    dispatch(ordenByPower(e.target.value))
+    setOrder(e.target.value)
   }
 
   return (
-    <div className={s.contenedor}>
+    <div className={s.cajaCentral}>
       <main>
         <h1>Pokemons</h1>
-        <select className={s.select}>
-          <option value="default">default</option>
-          <option value="asc">Acendente</option>
-          <option value="desc">descendente</option>
-        </select>
-        <select className={s.select} onChange={(e) => handleFilterType(e)}>
-          <option value="">types</option>
-          <option value="all">All</option>
-          <option value="poison">Poison</option>
-          <option value="normal">Normal</option>
-          <option value="flying">Flying</option>
-          <option value="bug">Bug</option>
-          <option value="ground">Ground</option>
-          <option value="rock">Rock</option>
-          <option value="fighting">Fighting</option>
-          <option value="ghost">Ghost</option>
-          <option value="steel">Steel</option>
-          <option value="fire">Fire</option>
-          <option value="water">Water</option>
-          <option value="grass">Grass</option>
-          <option value="electric">Electric</option>
-          <option value="psychic">Psychic</option>
-          <option value="ice">Ice</option>
-          <option value="dragon">Dragon</option>
-          <option value="dark">Dark</option>
-          <option value="fairy">Fairy</option>
-          <option value="unknown">Unknown</option>
-          <option value="shadow">Shadow</option>
-        </select>
-        <select onChange={(e) => handleFilterCreate(e)}  className={s.select}>
-          <option value="default">default</option>
-          <option value="all">All</option>
-          <option value="existente">Existente</option>
-          <option value="created">Creado</option>
-        </select>
-
+        <OrderBy handle={handleOderByAlf} navigate={handleOderByPow} />
+        <FilterType navigate={handleFilterType} />
+        <FilterCreate handle={handleFilterCreate} />
         <Paginado
           pokemons={pokemonsPR?.length}
           limitPage={limitPage}
           paginado={paginado}
         />
-
         <Search />
       </main>
       <div className={s.cajaCentral}>
-        {
-          currentPokemos?.map((pokemon) => (
-            <Pokemon
-              key={pokemon.id}
-              navigate={handleNavigate}
-              name={pokemon.name}
-              types={pokemon.types}
-              img={pokemon.img}
-              id = {pokemon.id}
-            />
-          
+        {currentPokemos?.map((pokemon) => (
+          <Pokemon
+            pokemon={pokemon}
+            key={pokemon.id}
+            navigate={handleNavigate}
+          />
         ))}
       </div>
     </div>

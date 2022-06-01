@@ -21,7 +21,19 @@
     justify-content: center;
 
 }
-
+.home{
+   
+    width: 100%;
+    height: 100vw;
+    justify-content: center;
+    background-color: rgb(149, 165, 166);
+}
+ .home h1{
+     margin: auto 20rem;
+ }
+ .home section{
+    margin: auto 20rem;
+}
 .cajaCentral {
     display: flex;
     justify-content: space-evenly;
