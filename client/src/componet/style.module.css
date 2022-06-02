@@ -26,13 +26,14 @@
     width: 100%;
     height: 100vw;
     justify-content: center;
-    background-color: rgb(149, 165, 166);
+    background-image:'https://fondosmil.com/fondo/14734.png';
 }
  .home h1{
      margin: auto 20rem;
  }
  .home section{
     margin: auto 20rem;
+
 }
 .cajaCentral {
     display: flex;
@@ -58,6 +59,7 @@
 }
 
 .cardDetail{
+    background-color: rgb(149, 165, 166);
     width: 100%;
     max-width: 30rem;
     border: solid 1px #f0f0f0;
@@ -69,11 +71,16 @@
     text-align: center;
     font-weight: bold;
 }
+.cardDetail article img{
+    width: 100%;
+    height: 50%;
+}
 .number{
     height: auto;
     width: 10%;
     background-color: #f0f0f0;
     list-style: none;
+    margin-bottom: 0.5rem;
     margin-right: 0.5rem;
     text-align: center;
     
@@ -84,6 +91,7 @@
 
 .select{
     margin-right:  0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 

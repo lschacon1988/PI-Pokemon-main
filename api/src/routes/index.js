@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { Pokemon, Types, type_pokemon } = require("../db.js");
 const axios = require("axios");
+const {Op} = require ('sequelize');
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -66,9 +67,19 @@ const getAllPoke = async () => {
 
 const getName = async (name) => {
   try {
-    name = name.toLowerCase();
-    let pokeDb = await Pokemon.findAll({ where: { name: name } });
-
+    // name = name.toLowerCase();
+    let pokeDb = await Pokemon.findAll({
+      where: {
+          name: {[Op.iLike]: name }}, 
+          include:{
+              model:Types,
+              attributes:['name'],
+              // through:{
+              //     attributes: []
+              // }
+          }
+          });
+  console.log(pokeDb)
     if (pokeDb.length) {
       return pokeDb;
     } else {
@@ -76,11 +87,11 @@ const getName = async (name) => {
       if (pokeName) {
         let arrPokeName = [];
         arrPokeName.push(pokeName);
-        return arrPokeName;
+        return pokeName;
       } else {
-        return { msg: "Pokemon Not Found" };
       }
     }
+    return [{ msg: "Pokemon Not Found" }];
   } catch (error) {
     console.log(error);
   }
@@ -90,18 +101,20 @@ const model = async (data) => {
   try {
     const modelo = await axios(`https://pokeapi.co/api/v2/pokemon/${data}`);
     if (modelo) {
-      const pokeModel = {
-        id: modelo.data.id,
-        name: modelo.data.name,
-        hp: modelo.data.stats[0].base_stat,
-        types: modelo.data.types.map((e) => e.type.name),
-        attack: modelo.data.stats[1].base_stat,
-        defense: modelo.data.stats[2].base_stat,
-        speed: modelo.data.stats[5].base_stat,
-        height: modelo.data.height,
-        weight: modelo.data.weight,
-        img: modelo.data.sprites.other.home.front_default,
-      };
+      const pokeModel = [
+        {
+          id: modelo.data.id,
+          name: modelo.data.name,
+          hp: modelo.data.stats[0].base_stat,
+          types: modelo.data.types.map((e) => e.type.name),
+          attack: modelo.data.stats[1].base_stat,
+          defense: modelo.data.stats[2].base_stat,
+          speed: modelo.data.stats[5].base_stat,
+          height: modelo.data.height,
+          weight: modelo.data.weight,
+          img: modelo.data.sprites.other.home.front_default,
+        },
+      ];
       return pokeModel;
     }
   } catch (error) {
@@ -122,8 +135,8 @@ const creatType = async () => {
       where: { name: e },
     });
   });
-
-  return arrType;
+  const allType = await Types.findAll();
+  return allType;
 };
 
 const pokeDetail = async (id) => {
@@ -135,11 +148,9 @@ const pokeDetail = async (id) => {
       }
     }
 
-    let arrDetali = [];
     const detali = await model(id);
-    arrDetali.push(detali);
 
-    if (arrDetali.length) return arrDetali;
+    if (detali.length) return detali;
 
     return { msg: "Pokemon Not Found" };
   } catch (error) {
@@ -154,7 +165,6 @@ router.get("/pokemons", async (req, res, next) => {
   try {
     if (name) {
       let p = await getName(name);
-
       return res.json(p);
     } else {
       let allPoke = await getAllPoke();
@@ -184,7 +194,6 @@ router.post("/pokemons", async (req, res, next) => {
     let newPoke = await Pokemon.create({
       name: name,
       hp: hp,
-      types: types,
       attack: attack,
       defense: defense,
       speed: speed,
@@ -197,6 +206,7 @@ router.post("/pokemons", async (req, res, next) => {
       where: { name: types },
     });
     newPoke.addTypes(dbType);
+    console.log(newPoke);
     res.json({ msg: "Pokemon creado" });
   } catch (error) {
     next(error);
@@ -205,10 +215,8 @@ router.post("/pokemons", async (req, res, next) => {
 
 router.get("/types", async (req, res, next) => {
   try {
-    const t = await creatType();
-    console.log("esto es t", t);
-    const type = await Types.findAll();
-    res.json(t);
+    const type = await creatType();
+    res.json(type);
   } catch (error) {
     next(error);
   }

@@ -1,4 +1,5 @@
 import {
+  CREATE_POKEMON,
   FILTER_CREATE,
   FILTER_TYPE,
   GET_POKEMONS,
@@ -29,7 +30,7 @@ export default function pokemonReducers(
     case GET_TYPE: {
       return {
         ...state,
-        alltypes: payload,
+        allTypes: payload,
       };
     }
     case NAME_POKEMON: {
@@ -99,6 +100,11 @@ export default function pokemonReducers(
       return {
         ...state,
         pokemons: payload === "all" ? allpokemons : pokemonOrder,
+      };
+    }
+    case CREATE_POKEMON: {
+      return {
+        ...state,
       };
     }
     default:

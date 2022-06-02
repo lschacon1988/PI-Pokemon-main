@@ -2,18 +2,20 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemonNAME } from "../store/action";
 
-export default function Search() {
+export default function Search({page}) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
   const handleInputChange = (e) => {
     e.preventDefault();
     setName(e.target.value);
+    page(1)
   };
 
   const onSearch = (e) => {
     e.preventDefault();
     dispatch(getPokemonNAME(name));
+    
   };
 
   return (

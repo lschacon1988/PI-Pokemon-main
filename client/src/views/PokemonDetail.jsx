@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import s from "../componet/style.module.css";
 
 export default function PokemonDetail() {
   const { idPokemon } = useParams();
-
   const [state, setState] = useState();
+  
 
   useEffect(() => {
     axios
@@ -14,9 +14,7 @@ export default function PokemonDetail() {
       .then((response) => {
         setState(response.data);
       });
-  }, [idPokemon]);
-
-  console.log("Soy estado de detalle", state);
+  }, [idPokemon]);  
 
   return (
     <div className={s.cardDetail}>
@@ -24,10 +22,28 @@ export default function PokemonDetail() {
         state &&
           state.map((e) => (
             <div key={e.id}>
-              <img src={e.img} alt={e.name} />
-              <samp>
-                Name: {e.name} Type: {e.types}
-              </samp>
+              <section>
+                <span>
+                  <h3>Nombre y ID</h3>
+                  Name: {e.name} ID: {e.id} 
+                </span>
+                <span>
+                  <h3>Estadisticas</h3>
+                  Vida: {e.hp} Fuerza: {e.attack} Velocidad: {e.speed}
+                </span>
+                <span>
+                  <h3>Dimenciones</h3>
+                  Altura: {e.height} Peso: {e.weight}
+                </span>
+                <span>
+                  <Link to="/home">
+                    <button>Volver</button>
+                  </Link>
+                </span>
+                <article>
+                  <img src={e.img} alt={e.name} />
+                </article>
+              </section>
             </div>
           ))
 

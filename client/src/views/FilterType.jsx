@@ -1,13 +1,26 @@
-import { filterType, getType } from "../store/action";
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import s from "../componet/style.module.css";
-import { useSelector } from "react-redux";
+import { getType } from "../store/action";
 
 export default function FilterType({ navigate }) {
+  const dispatch = useDispatch();
   const pokemontype = useSelector((state) => state.pokemonReducers.allTypes);
-  console.log("Soy estado de detalle", pokemontype);
+  useEffect(() => {
+    dispatch(getType());
+  }, [dispatch]);
+  
   return (
     <select className={s.select} onChange={(e) => navigate(e)}>
-      <option value="all">Filter Types</option>      
+      <option value="all">Types</option>
+      {pokemontype && pokemontype.map(e=>(
+        <option value={e.name} key={e.id}>{e.name}</option>
+      ))}
+    </select>
+  );
+}
+{/* <option value="all">Filter Types</option>      
       <option value="poison">Poison</option>
       <option value="normal">Normal</option>
       <option value="flying">Flying</option>
@@ -27,7 +40,4 @@ export default function FilterType({ navigate }) {
       <option value="dark">Dark</option>
       <option value="fairy">Fairy</option>
       <option value="unknown">Unknown</option>
-      <option value="shadow">Shadow</option>
-    </select>
-  );
-}
+      <option value="shadow">Shadow</option> */}

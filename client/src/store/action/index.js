@@ -36,8 +36,16 @@ export function getPokemonNAME(name) {
 export function getType(){
   return async (dispatch) =>{
     const response = await axios.get('http://localhost:3001/types')
-    const {data} = response
+    const {data} = response    
     return dispatch({type: GET_TYPE, payload: data})
+  }
+}
+export function postPokemon (payload){
+  console.log('AAAAAAA', payload)
+  return async function (){
+      const response = await axios.post('http://localhost:3001/pokemons',payload);
+      return response
+      
   }
 }
 

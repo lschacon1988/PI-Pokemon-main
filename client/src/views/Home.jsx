@@ -6,7 +6,7 @@ export default function Home() {
     <main className={s.home}>
       <h1>Pokemons</h1>
       <section>
-        <Link to="/pokemons">Ver los pokemons</Link>
+        <Link to="/home">Ver los pokemons</Link>
       </section>
     </main>
   );
