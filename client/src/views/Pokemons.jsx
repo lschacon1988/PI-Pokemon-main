@@ -9,6 +9,7 @@ import {
   ordenByPower,
 } from "../store/action";
 import s from "../componet/style.module.css";
+import ss from '../style/home.module.css'
 import Search from "./Search";
 import Paginado from "./Paginado";
 import FilterType from "./FilterType";
@@ -62,9 +63,11 @@ export default function Pokemons(props) {
     dispatch(ordenByPower(e.target.value));
     setOrder(e.target.value);
   }
+
+  console.log('ALGOOOOOO',currentPokemos)
   
   return (
-    <div className={s.cajaCentral}>
+    <div className={ss.bod}>
       <main>
         <h1>Pokemons</h1>
         <Link to="/pokemons">Vamos a crear un Pokemon</Link>

@@ -45,7 +45,7 @@ export default function pokemonReducers(
         payload === "all"
           ? allpokemons
           : allpokemons.filter((e) => {
-              return e.types.find((t) => t === payload);
+              return e.types.find((t) => t.name === payload);
             });
 
       return {
@@ -53,6 +53,19 @@ export default function pokemonReducers(
         pokemons: typePokemons,
       };
     }
+/**case 'FILTER_BY_DIETS':
+            const recipes = state.allRecipesCopy//-->[100]
+            const recipesFilterByDiets = //-->[20]
+                recipes.filter(recipe => {
+                    let names = recipe.diets.map(diet => diet.name)//-->[ove,vegano,paleo]
+                    if (names.includes(action.payload)) //carnivoro
+                    return recipe
+                })
+            return {
+                ...state,
+                recipes: recipesFilterByDiets//-->[20]
+          */
+
     case FILTER_CREATE: {
       const allpokemons = state.pokemonAll;
       const createPokemon =

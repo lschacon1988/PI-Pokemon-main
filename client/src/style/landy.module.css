@@ -1,27 +1,3 @@
-.contenedor {
-    width: 100%;
-    padding: 3rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.card {
-    background-color: transparent;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 1.5rem;
-    gap: 1rem;
-    align-items: center;
-    width: 20%;
-    border: solid, 1px, #f0f0f0;
-    border-radius: 5%;
-    overflow: hidden;
-    box-sizing: border-box;
-    justify-content: center;
-
-}
-
 .home {
     background-image: url('https://w0.peakpx.com/wallpaper/853/675/HD-wallpaper-fondo-de-pantalla-guay-pokemon.jpg');
     background-size: cover;
@@ -96,7 +72,7 @@
     background: linear-gradient(360deg,transparent,#a945c0);
 }
 .btn_neon:hover .span4{
-    top: 100%;
+    bottom: 100%;
     transition: 1s;
     transition-delay: 0.75s;
 }
@@ -110,80 +86,4 @@
 .home section {
     margin: auto 20rem;
 
-}
-
-.cajaCentral {
-   
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-.fondo{
-    background-color: #f0f0f0;
-    background-size: cover;
-    background-repeat: repeat;
-    height: 120vw;
-    text-align: center;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-.fondo h1{
-    margin-top: 0;
-}
-
-
-.img {
-    width: 100%;
-    margin: auto;
-}
-
-.span {
-    display: flex;
-    flex-wrap: wrap;
-    font-weight: bold;
-    margin: auto, 0;
-}
-
-.btn {
-    margin: auto, 0;
-}
-
-.cardDetail {
-    background-color: rgb(149, 165, 166);
-    width: 100%;
-    max-width: 30rem;
-    border: solid 1px #f0f0f0;
-    border-radius: 20%;
-    margin-top: 3rem;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-    text-align: center;
-    font-weight: bold;
-}
-
-.cardDetail article img {
-    width: 100%;
-    height: 50%;
-}
-
-.number {
-    height: auto;
-    width: 10%;
-    background-color: #f0f0f0;
-    list-style: none;
-    margin-bottom: 0.5rem;
-    margin-right: 0.5rem;
-    text-align: center;
-
-}
-
-.ul {
-    display: flex;
-}
-
-.select {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
 }

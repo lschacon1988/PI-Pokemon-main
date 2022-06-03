@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { Pokemon, Types, type_pokemon } = require("../db.js");
 const axios = require("axios");
-const {Op} = require ('sequelize');
+const { Op } = require("sequelize");
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -18,7 +18,7 @@ const getInfo = async () => {
           name: p.data.name,
           hp: p.data.stats[0].base_stat,
           // stats[0].base_stat
-          types: p.data.types.map((e) => e.type.name),
+          types: p.data.types.map((e) => {return{name:e.type.name}}),
           attack: p.data.stats[1].base_stat,
           // stats[1].base_stat
           defense: p.data.stats[2].base_stat,
@@ -70,23 +70,23 @@ const getName = async (name) => {
     // name = name.toLowerCase();
     let pokeDb = await Pokemon.findAll({
       where: {
-          name: {[Op.iLike]: name }}, 
-          include:{
-              model:Types,
-              attributes:['name'],
-              // through:{
-              //     attributes: []
-              // }
-          }
-          });
-  console.log(pokeDb)
+        name: { [Op.iLike]: name },
+      },
+      include: {
+        model: Types,
+        attributes: ["name"],
+        // through:{
+        //     attributes: []
+        // }
+      },
+    });
+  
     if (pokeDb.length) {
       return pokeDb;
     } else {
       const pokeName = await model(name);
       if (pokeName) {
-        let arrPokeName = [];
-        arrPokeName.push(pokeName);
+        
         return pokeName;
       } else {
       }
@@ -106,7 +106,7 @@ const model = async (data) => {
           id: modelo.data.id,
           name: modelo.data.name,
           hp: modelo.data.stats[0].base_stat,
-          types: modelo.data.types.map((e) => e.type.name),
+          types: modelo.data.types.map((e) => {return{name:e.type.name}}),          
           attack: modelo.data.stats[1].base_stat,
           defense: modelo.data.stats[2].base_stat,
           speed: modelo.data.stats[5].base_stat,

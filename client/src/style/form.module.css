@@ -1,0 +1,118 @@
+
+.body{
+    background: url('https://p4.wallpaperbetter.com/wallpaper/776/153/300/pokemon-poker-bulbasaur-pikachu-meowth-squirtle-charmander-wallpaper-preview.jpg'); 
+   -webkit-background-size: cover;
+   background-size: cover;
+   background-attachment: fixed;
+   margin: 0;
+   padding: 0;
+    
+}
+
+
+.contenedor .form .form_header .form_title{
+    font-weight: normal;
+    font-family: sans-serif;
+    color: #ff851b;
+    text-align: center;
+    padding: 1rem 0;
+}
+.contenedor .form .form_header .form_title span{
+    
+    color: #fff;
+}
+.contenedor .form{
+    background: rbga(0,0,0,.6);
+    width: 98%;
+    max-width: 658px;
+    margin: auto;
+    padding: 0.5rem 2rem;
+    margin-top: 0;
+    padding-bottom: 2rem;
+    border-radius: 3px;
+
+}
+
+.contenedor .form .form_label{
+    display: block;
+    color: #ff851b;
+    font-size: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: relative;
+    
+}
+
+.contenedor .form .form_inpt{
+    background: rgba(0,0, 0,.7);
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #ff851b ;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.contenedor .form .btn_submit{
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    outline: none;
+    background: #ff851b;
+    font-size: 1.5rem;
+    border: none;
+    color: #fff;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: all .5s ease;
+
+}
+
+.contenedor .form .btn_submit:hover {
+    background: #f29718;
+}
+
+.contenedor .form .btn_submit2{
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    outline: none;
+    background: #ff851b;
+    font-size: 1.5rem;
+    border: none;
+    color: #fff;
+    margin-top: 0;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: all .5s ease;
+
+}
+
+.contenedor .form .btn_submit2:hover {
+    background: #f29718;
+}
+
+/* .form{
+    color: #000;
+}
+
+.form-header{
+    color: aliceblue;
+}
+
+.form-title{
+    color: aliceblue;
+}
+
+.form-label{
+   color: aliceblue; 
+}
+
+.form_inpt{
+    color: #000;
+}
+
+.btn-submit{
+    color: #000;
+} */

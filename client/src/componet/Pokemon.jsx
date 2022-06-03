@@ -3,15 +3,13 @@ import s from "./style.module.css";
 
 export default function Pokemon(props) {
   const { pokemon, navigate } = props;
-  const { name, img, id, types } = pokemon;
+  const { name, img, id, types} = pokemon;
+ 
   console.log(types)
-  let type = types?.map((e) => {
-    if (types[0] instanceof Object) {
-      return e.name;
-    } else {
-      return e;
-    }
-  });
+  let type = types?.map((e) => e.name);
+
+  //¨['jsjsjjs']
+  //[{name:jhsadjgd}]
   return (
     <main className={s.card}>
       <h1>Yo soy</h1>
