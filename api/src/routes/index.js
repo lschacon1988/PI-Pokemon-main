@@ -67,7 +67,7 @@ const getAllPoke = async () => {
 
 const getName = async (name) => {
   try {
-    // name = name.toLowerCase();
+     name = name.toLowerCase();
     let pokeDb = await Pokemon.findAll({
       where: {
         name: { [Op.iLike]: name },
@@ -80,6 +80,8 @@ const getName = async (name) => {
         // }
       },
     });
+
+    
   
     if (pokeDb.length) {
       return pokeDb;

@@ -41,7 +41,7 @@ export default function PokemonDetail() {
                   </Link>
                 </span>
                 <article>
-                  <img src={e.img} alt={e.name} />
+                  <img src={e.img? e.img:'https://i.pinimg.com/236x/bb/65/ac/bb65acb8eced7c4a1fbce90916211e80--sticker-vinyl-car-decals.jpg'} alt={e.name} />
                 </article>
               </section>
             </div>

@@ -1,6 +1,6 @@
 
 .body{
-    background: url('https://p4.wallpaperbetter.com/wallpaper/776/153/300/pokemon-poker-bulbasaur-pikachu-meowth-squirtle-charmander-wallpaper-preview.jpg'); 
+    background: url('https://i.pinimg.com/736x/83/5f/e4/835fe4c3456c3a8475405498266af4fa--vintage-black-christmas-.jpg'); 
    -webkit-background-size: cover;
    background-size: cover;
    background-attachment: fixed;
@@ -91,6 +91,11 @@
 
 .contenedor .form .btn_submit2:hover {
     background: #f29718;
+}
+
+.error{
+    font-size: 1rem;
+    color: #fff;
 }
 
 /* .form{

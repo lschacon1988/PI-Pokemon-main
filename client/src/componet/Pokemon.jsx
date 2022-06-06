@@ -1,24 +1,29 @@
 import { useState } from "react";
-import s from "./style.module.css";
+import s from "../style/card.module.css";
 
 export default function Pokemon(props) {
   const { pokemon, navigate } = props;
-  const { name, img, id, types} = pokemon;
+  const { name, img, id, types} = pokemon; 
  
-  console.log(types)
-  let type = types?.map((e) => e.name);
-
-  //¨['jsjsjjs']
-  //[{name:jhsadjgd}]
   return (
-    <main className={s.card}>
-      <h1>Yo soy</h1>
-      <img className={s.img} src={img} alt={name} />
-      <span className={s.span}>{name}</span>
-      <span className={s.span}>Types: {type}</span>
-      <div className={s.btn}>
-        <button onClick={() => navigate(id)}>Detail</button>
+    // <main className={s.container}>
+      // <section className={s.card_container}>
+        
+     <div className={s.card}>
+      {/* <div className={s.card_img}> */}
+        
+      <button className={s.btn} onClick={() => navigate(id)}><img  src={img? img: 'https://i.pinimg.com/236x/bb/65/ac/bb65acb8eced7c4a1fbce90916211e80--sticker-vinyl-car-decals.jpg'} alt={name} /></button>
+        {/* </div> */}
+      {/* <div className={s.card_info} > */}
+      <h3 className={s.span}>{name}</h3> <b/>
+      <p className={s.span2}>Types: {types.map(e=>{
+        return(<ul>
+          <li>{e.name}</li>
+        </ul>)
+      })}</p>
       </div>
-    </main>
+        // </div>       
+        // </section>      
+    // </main>
   );
 }

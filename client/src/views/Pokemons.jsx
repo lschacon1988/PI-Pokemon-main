@@ -4,12 +4,12 @@ import Pokemon from "../componet/Pokemon";
 import {
   filterCreate,
   filterType,
-  getpokemonBack,  
+  getpokemonBack,
   ordenBy,
   ordenByPower,
 } from "../store/action";
-import s from "../componet/style.module.css";
-import ss from '../style/home.module.css'
+import s from "../style/card.module.css";
+import ss from "../style/home.module.css";
 import Search from "./Search";
 import Paginado from "./Paginado";
 import FilterType from "./FilterType";
@@ -64,16 +64,14 @@ export default function Pokemons(props) {
     setOrder(e.target.value);
   }
 
-  console.log('ALGOOOOOO',currentPokemos)
-  
   return (
-    <div className={ss.bod}>
+    <div className={s.container_home}>
       <main>
         <h1>Pokemons</h1>
         <Link to="/pokemons">Vamos a crear un Pokemon</Link>
         <OrderBy handle={handleOderByAlf} navigate={handleOderByPow} />
-        <FilterType navigate={handleFilterType}  />
-        <FilterCreate handle={handleFilterCreate}  />
+        <FilterType navigate={handleFilterType} />
+        <FilterCreate handle={handleFilterCreate} />
         <Paginado
           pokemons={pokemonsPR?.length}
           limitPage={limitPage}
@@ -82,7 +80,7 @@ export default function Pokemons(props) {
         <Search page={setCurrentPage} />
       </main>
 
-      <div className={s.cajaCentral}>
+      <div className={s.contenedor}>
         {currentPokemos?.map((pokemon) => (
           <Pokemon
             pokemon={pokemon}
