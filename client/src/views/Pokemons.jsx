@@ -9,15 +9,8 @@ import {
   ordenByPower,
 } from "../store/action";
 import s from "../style/card.module.css";
-import style from "../style/title.module.css"
-import ss from "../style/filters.module.css";
-import styleSearch from '../style/search.module.css'
-import Search from "./Search";
 import Paginado from "./Paginado";
-import FilterType from "./FilterType";
-import FilterCreate from "./FilterCreate";
-import OrderBy from "./OrderBy";
-import { Link } from "react-router-dom";
+import Nav from "./Nav";
 
 export default function Pokemons(props) {
   const {
@@ -68,18 +61,12 @@ export default function Pokemons(props) {
 
   return (
     <div className={s.container_home}>
-      <div className={style.title}>
-        <h1>Pokemons</h1>
-        <Link to="/pokemons"><button>Vamos a crear un Pokemon</button> </Link>
-      </div>
-      <main className={ss.contenedor_filter}>
-        <OrderBy handle={handleOderByAlf} navigate={handleOderByPow} />
-        <FilterType navigate={handleFilterType} />
-        <FilterCreate handle={handleFilterCreate} />
-      </main>
-      <div className={styleSearch.conte_search}>
-        <Search page={setCurrentPage} />
-      </div>
+      <Nav
+        navigate={handleFilterType}
+        handle={handleFilterCreate}
+        handleOrderAlf={handleOderByAlf}
+        halndelPow={handleOderByPow}
+      />
 
       <div className={s.contenedor}>
         {currentPokemos?.map((pokemon) => (

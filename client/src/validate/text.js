@@ -1,13 +1,4 @@
-export const text = (input) => {
-  const error = {};
-  if (!input.name) {
-    error.name = "Este campo es obligatorio";
-  } else if (!/^[a-zA-Z]*$/.test(input.name)) {
-    error.name = "Este campo solo acepta texto";
-  }
-  
-  return error;
-};
+
 
 export const validate =(input)=>{
   const error = {};

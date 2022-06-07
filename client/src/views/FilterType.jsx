@@ -12,14 +12,14 @@ export default function FilterType({ navigate }) {
   }, [dispatch]);
   
   return (
-    <div className={s.select}>
-    <select  onChange={(e) => navigate(e)}>
+    
+    <select className={s.select}  onChange={(e) => navigate(e)}>
       <option value="all">Types</option>
       {pokemontype && pokemontype.map(e=>(
         <option value={e.name} key={e.id}>{e.name}</option>
         ))}
     </select>
-        <span className={s.span_selection}></span>
-        </div>
+        
+        
   );
 }

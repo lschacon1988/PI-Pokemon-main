@@ -39,4 +39,8 @@
   cursor: pointer; 
 }
 
+.current_page:hover{
+    background: #0ab1ce;
+}
+
 
