@@ -1,0 +1,61 @@
+.contenedor_filter {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    justify-content: center;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 25px;
+    padding-top: 30px;
+}
+
+.select select {
+    box-shadow: 0 10px 25px rgba(0 0 0 0.2);
+    font-size: 1rem;
+    padding: 0.3em 2em 0.3em 0.8em;
+    background: #4d5061;
+    color: white;
+    border: 0;
+    margin-right: 15px;
+    cursor: pointer;    
+}
+/* .select{
+    position: relative;
+}
+
+.span_selection {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    background: #3b3c47;
+    height: 60%;
+    width: 4rem;
+    pointer-events: none;
+}
+
+.span_selection::before,
+.span_selection::after{
+    --size: 0.45em;
+
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.span_selection::before{
+    border-left: var(--size) solid transparent;
+    border-right:var(--size)  solid transparent;
+    border-bottom: var(--size)  solid rgba(255, 255, 255, 0.5);
+    top: 35%;
+}
+.span_selection::after{
+    border-left: var(--size) solid transparent;
+    border-right:var(--size)  solid transparent;
+    border-top: var(--size)  solid rgba(255, 255, 255, 0.5);
+    top:56%;
+} */

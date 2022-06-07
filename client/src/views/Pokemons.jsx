@@ -9,7 +9,9 @@ import {
   ordenByPower,
 } from "../store/action";
 import s from "../style/card.module.css";
-import ss from "../style/home.module.css";
+import style from "../style/title.module.css"
+import ss from "../style/filters.module.css";
+import styleSearch from '../style/search.module.css'
 import Search from "./Search";
 import Paginado from "./Paginado";
 import FilterType from "./FilterType";
@@ -32,7 +34,7 @@ export default function Pokemons(props) {
   const pokemonsPR = useSelector((state) => state.pokemonReducers.pokemons);
   // PAGINADO
   const [currentPage, setCurrentPage] = useState(1);
-  const [limitPage, setLimitpage] = useState(8);
+  const [limitPage, setLimitpage] = useState(12);
   const indexOfLastPage = currentPage * limitPage;
   const indexOffirstpage = indexOfLastPage - limitPage;
   const currentPokemos = pokemonsPR.slice(indexOffirstpage, indexOfLastPage);
@@ -66,19 +68,18 @@ export default function Pokemons(props) {
 
   return (
     <div className={s.container_home}>
-      <main>
+      <div className={style.title}>
         <h1>Pokemons</h1>
-        <Link to="/pokemons">Vamos a crear un Pokemon</Link>
+        <Link to="/pokemons"><button>Vamos a crear un Pokemon</button> </Link>
+      </div>
+      <main className={ss.contenedor_filter}>
         <OrderBy handle={handleOderByAlf} navigate={handleOderByPow} />
         <FilterType navigate={handleFilterType} />
         <FilterCreate handle={handleFilterCreate} />
-        <Paginado
-          pokemons={pokemonsPR?.length}
-          limitPage={limitPage}
-          paginado={paginado}
-        />
-        <Search page={setCurrentPage} />
       </main>
+      <div className={styleSearch.conte_search}>
+        <Search page={setCurrentPage} />
+      </div>
 
       <div className={s.contenedor}>
         {currentPokemos?.map((pokemon) => (
@@ -89,6 +90,12 @@ export default function Pokemons(props) {
           />
         ))}
       </div>
+      <Paginado
+        curret={currentPage}
+        pokemons={pokemonsPR?.length}
+        limitPage={limitPage}
+        paginado={paginado}
+      />
     </div>
   );
 }

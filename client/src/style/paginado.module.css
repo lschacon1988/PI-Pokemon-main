@@ -2,4 +2,41 @@
     text-align: center;
     margin: 30px 30px 60px;
     user-select: none;
+    margin-bottom: 0;
 }
+
+.pagination li{
+    display: inline-block;
+    margin: 5px;
+    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+
+}
+.pagination li a,.page_items_previo, .page_items_next{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 35px;
+}
+.page_items_previo, .page_items_next{
+    background: #0ab1ce;
+    font-size: 1.2em;
+    width: 80px;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.page_items_previo:hover{
+    transform: translateX(-5px);
+}
+.page_items_next:hover{
+    transform: translateX(5px);
+}
+
+.current_page{
+  background: #ccc;
+  width: 45px; 
+  border-radius: 50%;
+  cursor: pointer; 
+}
+
+

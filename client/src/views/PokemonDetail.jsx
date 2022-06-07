@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import s from "../componet/style.module.css";
+import s from "../style/detail.module.css";
 
 export default function PokemonDetail() {
   const { idPokemon } = useParams();
   const [state, setState] = useState();
-  
 
   useEffect(() => {
     axios
@@ -14,46 +13,46 @@ export default function PokemonDetail() {
       .then((response) => {
         setState(response.data);
       });
-  }, [idPokemon]);  
+  }, [idPokemon]);
 
   return (
-    <div className={s.cardDetail}>
-      {
-        state &&
+    <div className={s.contenedor}>
+      <main className={s.cardDetail}>
+        {state &&
           state.map((e) => (
             <div key={e.id}>
               <section>
-                <span>
+               
                   <h3>Nombre y ID</h3>
-                  Name: {e.name} ID: {e.id} 
-                </span>
-                <span>
+                 <p> Name: {e.name} ID: {e.id}</p> 
+               
+                
                   <h3>Estadisticas</h3>
-                  Vida: {e.hp} Fuerza: {e.attack} Velocidad: {e.speed}
-                </span>
-                <span>
+                 <p> Vida: {e.hp} Fuerza: {e.attack} Velocidad: {e.speed}</p> 
+                
+                
                   <h3>Dimenciones</h3>
-                  Altura: {e.height} Peso: {e.weight}
-                </span>
-                <span>
+                  <p> Altura: {e.height} Peso: {e.weight}</p> 
+                
+                
                   <Link to="/home">
                     <button>Volver</button>
                   </Link>
-                </span>
+                
                 <article>
-                  <img src={e.img? e.img:'https://i.pinimg.com/236x/bb/65/ac/bb65acb8eced7c4a1fbce90916211e80--sticker-vinyl-car-decals.jpg'} alt={e.name} />
+                  <img
+                    src={
+                      e.img
+                        ? e.img
+                        : "https://i.pinimg.com/236x/bb/65/ac/bb65acb8eced7c4a1fbce90916211e80--sticker-vinyl-car-decals.jpg"
+                    }
+                    alt={e.name}
+                  />
                 </article>
               </section>
             </div>
-          ))
-
-        // <>
-        //   <img className={s.img} src={state.img} alt="" />
-        //   <samp>
-        //     Name: {state.name} Type: {state.types}
-        //   </samp>
-        // </>
-      }
+          ))}
+      </main>
     </div>
   );
 }

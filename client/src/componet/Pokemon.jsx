@@ -17,7 +17,7 @@ export default function Pokemon(props) {
       {/* <div className={s.card_info} > */}
       <h3 className={s.span}>{name}</h3> <b/>
       <p className={s.span2}>Types: {types.map(e=>{
-        return(<ul>
+        return(<ul key={e.name}>
           <li>{e.name}</li>
         </ul>)
       })}</p>

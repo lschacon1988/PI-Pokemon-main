@@ -7,15 +7,16 @@ export default function Search({page}) {
   const [name, setName] = useState("");
 
   const handleInputChange = (e) => {
-    e.preventDefault();
-    setName(e.target.value);
+    e.preventDefault();    
+    setName(e.target.value.toLowerCase());
     page(1)
+    
   };
 
   const onSearch = (e) => {
-    e.preventDefault();
+    e.preventDefault();    
     dispatch(getPokemonNAME(name));
-    
+    setName('')
   };
 
   return (
