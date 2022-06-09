@@ -78,7 +78,7 @@ export default function pokemonReducers(
       };
     }
     case ORDER_BY: {
-      const allpokemons = state.pokemonAll;
+      const allpokemons = state.pokemons;
       const pokemonOrder =
         payload === "asc"
           ? allpokemons.sort((a, b) => {
@@ -118,6 +118,7 @@ export default function pokemonReducers(
     case CREATE_POKEMON: {
       return {
         ...state,
+        pokemons: [...state.pokemons, payload]
       };
     }
     default:

@@ -8,13 +8,17 @@
     width: 100%;
 }
 
-.logo{
+.logo {
     color: white;
     font-size: 35px;
     line-height: 80px;
-    padding: 0 50px;
+    padding: 0 40px;
     font-weight: bold;
-    width: 30%;
+    width: 10%;    
+}
+.link{
+    text-decoration: none;
+    color: #f29718;
 }
 
 .nav .ul{
@@ -38,12 +42,14 @@
     background: #4d5061;
     font-size: 1rem;
     border: none;
-    color: #fff;   
+    color: #f29718;   
     cursor: pointer;
     transition: all .5s ease;
+    text-decoration: none;
 
 }
 
 .items button:hover{
     background: #f29718;
+    color: white;
 }

@@ -1,4 +1,5 @@
 import {
+  CREATE_POKEMON,
     FILTER_CREATE,
   FILTER_TYPE,
   GET_POKEMONS,
@@ -12,24 +13,34 @@ import axios from "axios";
 function setPokemons(type, payload) {
   return { type: type, payload };
 }
+function setLoading(payload){
+  return{type:'SET_LOADING',payload}
+}
 
 export function getpokemonBack() {
   return async (dispatch) => {
+    dispatch(setLoading(true))
     const response = await axios.get("http://localhost:3001/pokemons");
     const { data } = response;
-    return dispatch(setPokemons(GET_POKEMONS, data));
+    if(data.length>0){
+      dispatch(setLoading(false))
+     return dispatch(setPokemons(GET_POKEMONS, data));
+
+    }
   };
 }
 
 export function getPokemonNAME(name) {
   return async (dispatch) => {
+    dispatch(setLoading(true))
     const response = await axios.get(
       `http://localhost:3001/pokemons?name=${name}` 
     );
-
     const { data } = response;
-
-    return dispatch({ type: NAME_POKEMON, payload: data });
+    if(data.length>0){
+      dispatch(setLoading(false))
+      return dispatch({ type: NAME_POKEMON, payload: data });
+    }    
   };
 }
 
@@ -40,12 +51,11 @@ export function getType(){
     return dispatch({type: GET_TYPE, payload: data})
   }
 }
-export function postPokemon (payload){
-  console.log('AAAAAAA', payload)
-  return async function (){
+export function postPokemon (payload){  
+  return async function (dispatch){
       const response = await axios.post('http://localhost:3001/pokemons',payload);
-      return response
-      
+      const {data} =response
+      return dispatch({type: CREATE_POKEMON, data})     
   }
 }
 

@@ -2,9 +2,7 @@
 import s from "../style/paginado.module.css";
 
 export default function Paginado(props) {
-  const { pokemons, paginado, limitPage } = props;
- 
-
+  const { pokemons, paginado, limitPage, next, prev, currentPokemos } = props;
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(pokemons / limitPage); i++) {
     pageNumbers.push(i);    
@@ -14,19 +12,19 @@ export default function Paginado(props) {
 
   return (
     <nav className={s.pagination}>
-      <li className={s.page_items_previo}>
+      <li  onClick={(e)=> prev(e)} className={s.page_items_previo}>
         {" "}
         <a  href="#">Prev</a>
       </li>
       {pageNumbers &&
         pageNumbers?.map((num) => (
-          <li className={className} id={num} key={num}>
+          <li onClick={() => paginado(num)} className={className} id={num} key={num}>
             {" "}
-            <a onClick={() => paginado( num)}>{num}</a>{" "}
+            <a >{num}</a>{" "}
           </li>          
         ))}
         
-      <li  className={s.page_items_next} >
+      <li disabled={currentPokemos< 12} onClick={(e)=> next(e)}  className={s.page_items_next} >
         {" "}
         <a  href="#">Next</a>
       </li>
